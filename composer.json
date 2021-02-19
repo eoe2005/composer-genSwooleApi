@@ -1,0 +1,21 @@
+{
+    "name": "gen/swooleapi",
+    "type": "library",
+    "authors": [
+        {
+            "name": "大飞哥",
+            "email": "eoe2005@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-pdo_mysql": "*",
+        "ext-openssl": "*",
+        "ext-redis": "*",
+        "ext-swoole": "*"
+    },
+    "autoload": {
+        "psr-4": {"Gen\\": "Src/"}
+    }
+
+}
