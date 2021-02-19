@@ -9,7 +9,7 @@ define('APP_ROOT',dirname(realpath($_SERVER['SCRIPT_FILENAME'])));
 class Server
 {
     static function Run(){
-        $httpServer = new Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
+        $httpServer = new \Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
         $httpServer->on("start",function($server){
             Log::ServerDebug("程序启动");
         });

@@ -1,0 +1,77 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0054a5a5dd79abc53b1fa0d813b8bb6b",
+    "packages": [
+        {
+            "name": "gen/swooleapi",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eoe2005/composer-genSwooleApi.git",
+                "reference": "ad716b65ff913844c483633d7ad4879c69ef9c0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eoe2005/composer-genSwooleApi/zipball/ad716b65ff913844c483633d7ad4879c69ef9c0d",
+                "reference": "ad716b65ff913844c483633d7ad4879c69ef9c0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "ext-openssl": "*",
+                "ext-pdo": "*",
+                "ext-pdo_mysql": "*",
+                "ext-redis": "*",
+                "ext-swoole": "*"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/genapi"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gen\\": "Src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "大飞哥",
+                    "email": "eoe2005@qq.com"
+                }
+            ],
+            "description": "Object-Relational-Mapper for PHP",
+            "homepage": "https://github.com/eoe2005/composer-genSwooleApi",
+            "keywords": [
+                "api",
+                "swoole"
+            ],
+            "support": {
+                "issues": "https://github.com/eoe2005/composer-genSwooleApi/issues",
+                "source": "https://github.com/eoe2005/composer-genSwooleApi/tree/main"
+            },
+            "time": "2021-02-19T10:19:50+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "gen/swooleapi": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
