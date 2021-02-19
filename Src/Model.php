@@ -18,7 +18,7 @@ class Model
     protected $tableName = '';
     protected $pk = 'id';
     function __construct(){
-        $this->_table_pre = Conf::Ins()->get(sprintf('db.%s.tablePrefix',$this->connectName),'');
+        $this->_table_pre = Conf::Ins()->get(sprintf('mysql.%s.tablePrefix',$this->connectName),'');
     }
 
     function getTable(){
