@@ -328,9 +328,7 @@ class GDb
         return $this->pdo;
 
     }
-    public function getDatabaseName(){
-        return env(sprintf('db.%s.dbname',$this->conName),'');
-    }
+
 
 
 
@@ -391,8 +389,7 @@ class GDb
     }
 
     private function debug($smg){
-        $msg = sprintf('[%s] %s',date("Y-m-d H:i:s"),call_user_func_array('sprintf',func_get_args()));
-        //echo $msg;
+        call_user_func_array('\\Gen\\Log::Sql',func_get_args());
     }
 
     /**
