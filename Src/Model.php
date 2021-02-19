@@ -380,7 +380,7 @@ class GDb
         try{
             $st = $this->getPdo()->prepare($sql);
             $st->execute($args);
-            $this->debug('SQL ->%s %s (%s) : %s',$st->errorCode(),$sql,json_encode($args),json_encode($st->errorInfo()));
+            $this->debug('%s %s (%s) : %s',$st->errorCode(),$sql,json_encode($args),json_encode($st->errorInfo()));
             return $st;
         }catch (\Exception $e){
             throw $e;
