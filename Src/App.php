@@ -16,7 +16,7 @@ class App
      * @date 2021/2/19
      * @like
      */
-    static function Redis($conName){
+    static function Redis($conName = 'default'){
         static $cons = [];
         if(!isset($cons[$conName]) || !$cons[$conName]->ping()){
             $redis = new \Redis();
@@ -81,5 +81,16 @@ class App
     }
     static function Success($data,$code = 0 ,$msg = ""){
         return ['code' => $code,'msg' => $msg,'data' => $data];
+    }
+
+    static function GetCache($key,$func,$timeout = null){
+        $redis = self::Redis();
+        $data = $redis->get($key);
+        if(!$data){
+            $data = $func();
+            $redis->set($key,json_encode($data),$timeout);
+            return $data;
+        }
+        return json_decode($data,true);
     }
 }

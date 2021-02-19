@@ -1,7 +1,12 @@
 {
     "name": "gen/default",
     "type": "project",
-    "require": {},
+    "require": {
+        "gen/swooleapi": "dev-main"
+    },
+    "require-dev": {
+        "gen/swooleapi": "dev-main"
+    },
     "autoload": {
         "psr-4": {"App\\": "./"}
     }
