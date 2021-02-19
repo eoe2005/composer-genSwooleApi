@@ -37,7 +37,7 @@ class Server
         try{
             $obj = new $actionName();
             $params = self::parseParam($r);
-            $uid = self::getUid();
+            $uid = self::getUid($r);
             $data = $obj->execute($uid,$params,$ip);
             $newUid = $obj->getNewUid();
             self::setUid($w,$newUid,$ip);
