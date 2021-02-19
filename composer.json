@@ -1,16 +1,24 @@
 {
     "name": "gen/swooleapi",
     "type": "library",
+    "description": "Object-Relational-Mapper for PHP",
+    "keywords": ["swoole", "api"],
+    "homepage": "https://github.com/eoe2005/composer-genSwooleApi",
+    "license": "MIT",
     "authors": [
         {
             "name": "大飞哥",
             "email": "eoe2005@qq.com"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "php": ">=7.1",
         "ext-openssl": "*",
-        "ext-redis": "*"
+        "ext-redis": "*",
+        "ext-pdo": "*"
 
     },
     "provides": {
@@ -19,6 +27,6 @@
     },
     "autoload": {
         "psr-4": {"Gen\\": "Src/"}
-    }
-
+    },
+    "bin": ["bin/genapi"]
 }
