@@ -10,7 +10,7 @@
     "require": {
         "php": ">=7.1",
         "ext-openssl": "*",
-        "ext-redis": "*",
+        "ext-redis": "*"
 
     },
     "provides": {
