@@ -9,9 +9,12 @@
     ],
     "require": {
         "php": ">=7.1",
-        "ext-pdo_mysql": "*",
         "ext-openssl": "*",
         "ext-redis": "*",
+
+    },
+    "provides": {
+        "ext-pdo_mysql": "*",
         "ext-swoole": "*"
     },
     "autoload": {
