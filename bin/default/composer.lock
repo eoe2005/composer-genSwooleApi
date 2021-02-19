@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eoe2005/composer-genSwooleApi.git",
-                "reference": "bd5bd282e4bf61cc26ee8b7fcb0844ed2d0e4db5"
+                "reference": "6933226c434999c38837f583a06e9df4d265e4cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eoe2005/composer-genSwooleApi/zipball/bd5bd282e4bf61cc26ee8b7fcb0844ed2d0e4db5",
-                "reference": "bd5bd282e4bf61cc26ee8b7fcb0844ed2d0e4db5",
+                "url": "https://api.github.com/repos/eoe2005/composer-genSwooleApi/zipball/6933226c434999c38837f583a06e9df4d265e4cb",
+                "reference": "6933226c434999c38837f583a06e9df4d265e4cb",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "issues": "https://github.com/eoe2005/composer-genSwooleApi/issues",
                 "source": "https://github.com/eoe2005/composer-genSwooleApi/tree/main"
             },
-            "time": "2021-02-19T10:38:51+00:00"
+            "time": "2021-02-19T10:45:43+00:00"
         }
     ],
     "packages-dev": [],
