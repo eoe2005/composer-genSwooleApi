@@ -278,6 +278,11 @@ class DbQuery
 
 
 }
+class Error{
+    static function errorMsg($code,$msg){
+        throw new \Exception($msg,$code);
+    }
+}
 /**
  * 数据库连接
  * @author 耿鸿飞 <15911185633>
