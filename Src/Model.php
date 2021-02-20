@@ -264,11 +264,21 @@ class DbQuery
                         !is_array($v) && Error::errorMsg(1202,'WHERE 参数错误');
                         $ret[] = $this->buildWhere(...$v);
                     }elseif(!is_numeric($k)){
-                        Log::Debug('%s -> %s ',$k,json_encode($v));
                         $ret[] = sprintf("`%s`=%s",$k,$this->buildKey($k,$v));
-                    }else{
-                        !is_array($v) && Error::errorMsg(1202,'WHERE 参数错误');
+                    }elseif(is_array($v)){
                         $ret[] = $this->buildWhere(...$v);
+                    }else{
+                        $len = count($args);
+                        if($len == 2){
+                            $ret[] = sprintf("`%s`=%s",$args[0],$this->buildKey(...$args));
+                        }elseif($len == 3){
+                            if($args[1] == 'in'){
+                                $ret[] = sprintf("`%s` IN ('%s')",$args[0],implode("','",$args[2]));
+                            }else{
+                                $ret[] = sprintf("`%s`%s('%s')",$args[0],$args[1],$this->buildKey($args[0],$args[2]));
+                            }
+                        }
+
                     }
                 }
                 break;

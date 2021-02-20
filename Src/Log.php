@@ -24,6 +24,8 @@ class Log
     }
     static function Wasd(){}
     private static function save($type,$format){
-        echo sprintf("[%s] %s %s\n",date("Y-m-d H:i:s"),$type,call_user_func_array('sprintf',func_get_args()));
+        $ars = func_get_args();
+        array_shift($ars);
+        echo sprintf("[%s] %s %s\n",date("Y-m-d H:i:s"),$type,call_user_func_array('sprintf',$ars));
     }
 }
