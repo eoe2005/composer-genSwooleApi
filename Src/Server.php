@@ -27,11 +27,14 @@ class Server
         $time = microtime(true);
         $url = trim($r->server['request_uri'], '/');
         $actionName = trim($url,'.api');
+        $actionName = str_replace('/','\\',$actionName);
         if(!$actionName){
+            Log::Error('接口不存在 %s',$actionName);
             return App::Error(404,'接口不存在');
         }
         $actionName = '\\App\\Action\\'.ucfirst($actionName).'Action';
         if(!class_exists($actionName)){
+            Log::Error('接口不存在 %s',$actionName);
             return App::Error(404,'接口不存在');
         }
         try{
