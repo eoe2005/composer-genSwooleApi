@@ -212,7 +212,14 @@ class DbQuery
         }
         $sets = [];
         foreach ($data as $k => $v){
-            $sets[] = sprintf('`%s`=>%s',$k,$this->buildKey($k,$v));
+            if(strstr($v,'-') === 0){
+                $sets[] = sprintf('`%s`=`%s` - %s',$k,$this->buildKey($k,substr($v,1)));
+            }elseif(strstr($v,'+') === 0){
+                $sets[] = sprintf('`%s`=`%s` + %s',$k,$this->buildKey($k,substr($v,1)));
+            }else{
+                $sets[] = sprintf('`%s`=>%s',$k,$this->buildKey($k,$v));
+            }
+
         }
         $sql = sprintf('UPDATE `%s` SET %s WHERE %s %s %s',$this->tableName,implode(',',$sets),$this->where,$this->order,$this->limit);
         $st = $this->db->query($sql,$this->args);
