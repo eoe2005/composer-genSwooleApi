@@ -275,9 +275,10 @@ class DbQuery
                             if($args[1] == 'in'){
                                 $ret[] = sprintf("`%s` IN ('%s')",$args[0],implode("','",$args[2]));
                             }else{
-                                $ret[] = sprintf("`%s`%s('%s')",$args[0],$args[1],$this->buildKey($args[0],$args[2]));
+                                $ret[] = sprintf("`%s`%s%s",$args[0],$args[1],$this->buildKey($args[0],$args[2]));
                             }
                         }
+                        break;
 
                     }
                 }
