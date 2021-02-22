@@ -217,7 +217,7 @@ class DbQuery
             }elseif(strstr($v,'+') === 0){
                 $sets[] = sprintf('`%s`=`%s` + %s',$k,$this->buildKey($k,substr($v,1)));
             }else{
-                $sets[] = sprintf('`%s`=>%s',$k,$this->buildKey($k,$v));
+                $sets[] = sprintf('`%s`=%s',$k,$this->buildKey($k,$v));
             }
 
         }

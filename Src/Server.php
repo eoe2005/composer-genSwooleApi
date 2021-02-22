@@ -14,6 +14,7 @@ class Server
             Log::ServerDebug("程序启动");
         });
         $httpServer->on("request",function($r,$w){
+            $w->header('Access-Control-Allow-Origin','*');
             $data = self::apiCall($r,$w);
             $w->header('content-type', 'application/json', true);
             $ret = json_encode($data);
