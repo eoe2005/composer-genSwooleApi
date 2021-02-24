@@ -20,7 +20,7 @@ class Cli
             self::error();
         }
         $claName = '\\App\\Command\\'.$name.'Command';
-        if(class_exists($claName)){
+        if(!class_exists($claName)){
             self::error();
         }
         if('daemon' == $args[2] ?? ''){
