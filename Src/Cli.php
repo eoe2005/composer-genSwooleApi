@@ -28,10 +28,13 @@ class Cli
                 $pid = pcntl_fork();
                 if($pid == 0){
                     (new $claName)->handel();
-                    Log::ServerDebug("子进程已经退出: %s",$claName);
+
+                    Log::ServerDebug("子进程已经退出 -> %s",$claName);
                     exit(0);
                 }else{
                     pcntl_wait($status);
+                    Log::ServerDebug("子进程重启中 -> %s",$claName);
+                    sleep(5);
                 }
             }
         }else{
