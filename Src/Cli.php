@@ -23,7 +23,7 @@ class Cli
         if(!class_exists($claName)){
             self::error();
         }
-        if('daemon' == $args[2] ?? ''){
+        if('daemon' == ($args[2] ?? '')){
             Log::ServerDebug("程序要一直运行");
             while (true){
                 $pid = pcntl_fork();
