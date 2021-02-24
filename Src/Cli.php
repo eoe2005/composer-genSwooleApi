@@ -58,7 +58,7 @@ class Cli
             if($name == '.' || $name == '..'){
                 continue;
             }
-            if(is_dir($dir)){
+            if(is_dir($dir.'/'.$name)){
                 self::showCommand($path.'/'.$name);
             }else{
                 $name = rtrim($name,'Command');
