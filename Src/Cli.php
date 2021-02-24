@@ -9,7 +9,8 @@
 
 namespace Gen;
 
-
+define('DS',DIRECTORY_SEPARATOR);
+define('APP_ROOT',dirname(realpath($_SERVER['SCRIPT_FILENAME'])));
 class Cli
 {
     static function Run(){
