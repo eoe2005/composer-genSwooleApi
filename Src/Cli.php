@@ -22,7 +22,22 @@ class Cli
         if(class_exists($claName)){
             self::error();
         }
-        (new $claName)->handel();
+        if('daemon' == $args[2] ?? ''){
+            Log::ServerDebug("程序要一直运行");
+            while (true){
+                $pid = pcntl_fork();
+                if($pid == 0){
+                    (new $claName)->handel();
+                    Log::ServerDebug("子进程已经退出: %s",$claName);
+                    exit(0);
+                }else{
+                    pcntl_wait($status);
+                }
+            }
+        }else{
+            (new $claName)->handel();
+        }
+
     }
     private static function error(){
         echo "参数错误\n";
