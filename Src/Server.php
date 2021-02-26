@@ -9,6 +9,7 @@ define('APP_ROOT',dirname(realpath($_SERVER['SCRIPT_FILENAME'])));
 class Server
 {
     static function Run(){
+        self::startBaseApi();
         $httpServer = new \Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
         $httpServer->on("start",function($server){
             Log::ServerDebug("程序启动");
@@ -104,6 +105,29 @@ class Server
             $ip = $r->header['x-real-ip'] ?? '0.0.0.0';
         }
         return $ip;
+    }
+    //判断是否开启基础的api接口
+    private static function startBaseApi(){
+        if('on' == Conf::Ins()->get('app.base','on')){
+            class_alias('\\App\\Action\\Msg\\ChatMsgListAction',\Gen\BaseApi\Action\Msg\ChatMsgListAction::class);
+            class_alias('\\App\\Action\\Msg\\ChatUsersAction',\Gen\BaseApi\Action\Msg\ChatUsersAction::class);
+            class_alias('\\App\\Action\\Msg\\ChatSendMsgAction',\Gen\BaseApi\Action\Msg\ChatSendMsgAction::class);
+            class_alias('\\App\\Action\\Relation\\BlackListAddAction',\Gen\BaseApi\Action\Relation\BlackListAddAction::class);
+            class_alias('\\App\\Action\\Relation\\BlackListAction',\Gen\BaseApi\Action\Relation\BlackListAction::class);
+            class_alias('\\App\\Action\\Relation\\FriendApplyAction:',\Gen\BaseApi\Action\Relation\FriendApplyAction::class);
+            class_alias('\\App\\Action\\Relation\\FriendDelAction',\Gen\BaseApi\Action\Relation\FriendDelAction::class);
+            class_alias('\\App\\Action\\Relation\\FriendConfirmAction',\Gen\BaseApi\Action\Relation\FriendConfirmAction::class);
+            class_alias('\\App\\Action\\Relation\\FriendListAction',\Gen\BaseApi\Action\Relation\FriendListAction::class);
+            class_alias('\\App\\Action\\Relation\\FriendMarkAction',\Gen\BaseApi\Action\Relation\FriendMarkAction::class);
+            class_alias('\\App\\Action\\Resource\\CommentAction',\Gen\BaseApi\Action\Resource\CommentAction::class);
+            class_alias('\\App\\Action\\Resource\\CommentListAction',\Gen\BaseApi\Action\Resource\CommentListAction::class);
+            class_alias('\\App\\Action\\Resource\\FollowAction',\Gen\BaseApi\Action\Resource\FollowAction::class);
+            class_alias('\\App\\Action\\Resource\\FollowListAction',\Gen\BaseApi\Action\Resource\FollowListAction::class);
+            class_alias('\\App\\Action\\Resource\\PraiseAction',\Gen\BaseApi\Action\Resource\PraiseAction::class);
+            class_alias('\\App\\Action\\Resource\\PraiseListAction',\Gen\BaseApi\Action\Resource\PraiseListAction::class);
+            class_alias('\\App\\Action\\Resource\\ScoreAction',\Gen\BaseApi\Action\Resource\ScoreAction::class);
+            class_alias('\\App\\Action\\Resource\\ScoreListAction',\Gen\BaseApi\Action\Resource\ScoreListAction::class);
+        }
     }
 
 }
