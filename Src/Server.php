@@ -15,11 +15,14 @@ class Server
             Log::ServerDebug("程序启动");
         });
         $httpServer->on("request",function($r,$w){
+            $url = trim($r->server['request_uri'], '/');
+            Log::Time("%s start",$url);
             $w->header('Access-Control-Allow-Origin','*');
             $data = self::apiCall($r,$w);
             $w->header('content-type', 'application/json', true);
             $ret = json_encode($data);
             $w->end($ret);
+            Log::Time("%s end",$url);
         });
         $httpServer->start();
     }
@@ -127,6 +130,8 @@ class Server
             class_alias(\Gen\BaseApi\Action\Resource\PraiseListAction::class,'\\App\\Action\\Resource\\PraiseListAction');
             class_alias(\Gen\BaseApi\Action\Resource\ScoreAction::class,'\\App\\Action\\Resource\\ScoreAction');
             class_alias(\Gen\BaseApi\Action\Resource\ScoreListAction::class,'\\App\\Action\\Resource\\ScoreListAction');
+            //(new \App\Action\Resource\ScoreListAction)->execute();
+
         }
     }
 
