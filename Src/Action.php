@@ -48,7 +48,7 @@ abstract class Action
             return $ret;
         }
 
-        $rules = explode(":",$rouleString);
+        $rules = explode("|",$rouleString);
         foreach ($rules as $k){
             $isError = false;
             switch ($k){

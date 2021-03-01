@@ -8,29 +8,58 @@ define('APP_ROOT',dirname(realpath($_SERVER['SCRIPT_FILENAME'])));
 
 class Server
 {
-
+    private static $securityCheck = false;
+    private static $securityBody = false;
     static function Run(){
         $arg = $_SERVER['argv'][1] ?? '';
         if($arg){
             self::argRun($arg);
             exit();
         }
+        self::$securityCheck = Conf::Ins()->get('app.security.check','off') == 'on';
+        self::$securityBody = Conf::Ins()->get('app.security.body','off') == 'on';
         self::startBaseApi();
         $httpServer = new \Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
         $httpServer->on("start",function($server){
             Log::ServerDebug("程序启动");
         });
         $httpServer->on("request",function($r,$w){
-            $url = trim($r->server['request_uri'], '/');
-            Log::Time("%s start",$url);
-            $w->header('Access-Control-Allow-Origin','*');
-            $data = self::apiCall($r,$w);
-            $w->header('content-type', 'application/json', true);
-            $ret = json_encode($data);
-            $w->end($ret);
-            Log::Time("%s end",$url);
+
+            $isCheckOk = true;
+            if(self::$securityCheck){
+                $st = $r->header['st'] ?? '';
+                if($st){
+                    $stData = App::SecureDecode($st);
+                    if(strpos($stData,'ghftoken:') !== 0){
+                        $isCheckOk = false;
+                    }
+                }else{
+                    $isCheckOk = false;
+                }
+            }
+            if($isCheckOk){
+                $url = trim($r->server['request_uri'], '/');
+                Log::Time("%s start",$url);
+                $w->header('Access-Control-Allow-Origin','*');
+                $data = self::apiCall($r,$w);
+                $w->header('content-type', 'application/json', true);
+                $ret = json_encode($data);
+                self::sendData($w,$ret);
+                Log::Time("%s end",$url);
+            }else{
+                self::sendData($w,json_encode(['code' => 502,'msg' => '网关超时']));
+            }
+
         });
         $httpServer->start();
+    }
+
+    private static function sendData($w,$data){
+        if(self::$securityBody){
+            $w->end(App::SecureEncode($data));
+        }else{
+            $w->end($data);
+        }
     }
 
     private static function apiCall($r,$w){
