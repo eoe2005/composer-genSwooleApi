@@ -156,7 +156,6 @@ class Server
                 file_put_contents(is_dir('/etc/systemd/system') ? '/etc/systemd/system/'.App::AppName().'.service' : '/usr/lib/systemd/system/'.App::AppName().'.service',sprintf("[Service]
 Type=forking
 ExecStart=%s %s
-PIDFile=/run/%s.pid
 TimeoutStopSec=0
 Restart=always
 ExecReload=/bin/kill -USR1 \$MAINPID
@@ -164,7 +163,7 @@ User=%s
 Group=%s
 [Install]
 WantedBy=multi-user.target
-Alias=%s.service",$_SERVER['_'] ?? 'php' ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::AppName(),get_current_user(),get_current_user(),App::AppName()));
+Alias=%s.service",$_SERVER['_'] ?? 'php' ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],get_current_user(),get_current_user(),App::AppName()));
                 system('systemctl daemon-reload');
                 system('systemctl enable '.App::AppName());
                 system('systemctl start '.App::AppName());
