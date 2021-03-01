@@ -172,7 +172,7 @@ Alias=%s.service",$_SERVER['_'] ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::Ap
                 system('systemctl '.App::AppName().' stop');
                 system('systemctl disable '.App::AppName());
                 if(is_dir('/etc/systemd/system')){
-                    system('rm -f /etc/systemd/system/'.App::AppName().'.service');
+                    system('rm -f  /etc/systemd/system/'.App::AppName().'.service');
                 }else{
                     system('rm -f /usr/lib/systemd/system/'.App::AppName().'.service');
                 }
