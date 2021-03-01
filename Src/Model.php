@@ -251,7 +251,7 @@ class DbQuery
                 }
                 break;
             case 2:
-                $args[1] = strtolower($args[1]);
+
                 $ret[] = sprintf('`%s`=%s',$args[0],$this->buildKey($args[0],$args[1]));
                 break;
             case 1:
