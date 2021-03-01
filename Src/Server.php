@@ -144,13 +144,13 @@ class Server
     private static function argRun($arg){
         switch (strtolower($arg)){
             case 'start'://启动服务
-                system('systemctl '.App::AppName().' start');
+                system('systemctl start '.App::AppName());
                 break;
             case 'stop'://停止服务
-                system('systemctl '.App::AppName().' stop');
+                system('systemctl stop '.App::AppName());
                 break;
             case 'restart'://重启服务
-                system('systemctl '.App::AppName().' restart');
+                system('systemctl restart '.App::AppName());
                 break;
             case 'install'://安装服务
                 file_put_contents(is_dir('/etc/systemd/system') ? '/etc/systemd/system/'.App::AppName().'.service' : '/usr/lib/systemd/system/'.App::AppName().'.service',sprintf("[Service]
@@ -159,6 +159,7 @@ ExecStart=%s %s
 PIDFile=/run/%s.pid
 TimeoutStopSec=0
 Restart=always
+ExecReload=/bin/kill -USR1 \$MAINPID
 User=%s
 Group=%s
 [Install]
@@ -166,10 +167,10 @@ WantedBy=multi-user.target
 Alias=%s.service",$_SERVER['_'] ?? 'php' ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::AppName(),get_current_user(),get_current_user(),App::AppName()));
                 system('systemctl daemon-reload');
                 system('systemctl enable '.App::AppName());
-                system('systemctl '.App::AppName().' start');
+                system('systemctl start '.App::AppName());
                 break;
             case 'uninstall'://删除服务
-                system('systemctl '.App::AppName().' stop');
+                system('systemctl stop '.App::AppName());
                 system('systemctl disable '.App::AppName());
                 if(is_dir('/etc/systemd/system')){
                     system('rm -f  /etc/systemd/system/'.App::AppName().'.service');
