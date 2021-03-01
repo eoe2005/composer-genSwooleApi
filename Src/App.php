@@ -7,7 +7,7 @@ namespace Gen;
 class App
 {
     static function AppName(){
-        return defined(APP_NAME) ? APP_NAME : "app";
+        return defined(APP_NAME) ? APP_NAME : strtolower(basename(APP_ROOT));
     }
     /**
      * @param $conName

@@ -8,7 +8,13 @@ define('APP_ROOT',dirname(realpath($_SERVER['SCRIPT_FILENAME'])));
 
 class Server
 {
+
     static function Run(){
+        $arg = $_SERVER['argv'][1] ?? '';
+        if($arg){
+            self::argRun($arg);
+            exit();
+        }
         self::startBaseApi();
         $httpServer = new \Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
         $httpServer->on("start",function($server){
@@ -133,8 +139,48 @@ class Server
             //(new \App\Action\Resource\ScoreListAction)->execute();
 
         }
-    }
 
+    }
+    private static function argRun($arg){
+        switch (strtolower($arg)){
+            case 'start'://启动服务
+                system('systemctl '.App::AppName().' start');
+                break;
+            case 'stop'://停止服务
+                system('systemctl '.App::AppName().' stop');
+                break;
+            case 'restart'://重启服务
+                system('systemctl '.App::AppName().' restart');
+                break;
+            case 'install'://安装服务
+                file_put_contents(is_dir('/etc/systemd/system') ? '/etc/systemd/system/'.App::AppName().'.service' : '/usr/lib/systemd/system/'.App::AppName().'.service',sprintf("[Service]
+Type=forking
+ExecStart=%s %s
+PIDFile=/run/%s.pid
+TimeoutStopSec=0
+Restart=always
+User=%s
+Group=%s
+[Install]
+WantedBy=multi-user.target
+Alias=%s.service",$_SERVER['_'] ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::AppName(),get_current_user(),get_current_user(),App::AppName()));
+                system('systemctl daemon-reload');
+                system('systemctl enable '.App::AppName());
+                system('systemctl '.App::AppName().' start');
+                break;
+            case 'uninstall'://删除服务
+                system('systemctl '.App::AppName().' stop');
+                system('systemctl disable '.App::AppName());
+                if(is_dir('/etc/systemd/system')){
+                    system('rm -f /etc/systemd/system/'.App::AppName().'.service');
+                }else{
+                    system('rm -f /usr/lib/systemd/system/'.App::AppName().'.service');
+                }
+                system('systemctl daemon-reload');
+                break;
+        }
+
+    }
 }
 
 
