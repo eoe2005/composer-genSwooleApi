@@ -163,7 +163,7 @@ User=%s
 Group=%s
 [Install]
 WantedBy=multi-user.target
-Alias=%s.service",$_SERVER['_'] ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::AppName(),get_current_user(),get_current_user(),App::AppName()));
+Alias=%s.service",$_SERVER['_'] ?? 'php' ,APP_ROOT.DS.$_SERVER['SCRIPT_FILENAME'],App::AppName(),get_current_user(),get_current_user(),App::AppName()));
                 system('systemctl daemon-reload');
                 system('systemctl enable '.App::AppName());
                 system('systemctl '.App::AppName().' start');
