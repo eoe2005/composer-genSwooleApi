@@ -58,7 +58,7 @@ class App
         if(!$data){
             return '';
         }
-        return base64_encode(openssl_encrypt($data,Conf::Ins()->get('app.token.encrypt_type',"aes-128-cbc"),Conf::Ins()->get('app.token.key',"123456")));
+        return self::AesEncode($data,Conf::Ins()->get('app.token.key',"1234568901234567"));
     }
 
     /**
@@ -73,7 +73,7 @@ class App
         if(!$data){
             return '';
         }
-        return openssl_decrypt(base64_decode($data),Conf::Ins()->get('app.token.encrypt_type',"aes-128-cbc"),Conf::Ins()->get('app.token.key',"123456"));
+        return self::AesDecode($data,Conf::Ins()->get('app.token.key',"1234568901234567"));
     }
 
     static function Error($code,$msg){
@@ -92,5 +92,24 @@ class App
             return $data;
         }
         return json_decode($data,true);
+    }
+
+    // 处理的代码要求Golang也能处理
+    static function AesEncode($str,$key){
+        $method = 'aes-128-cbc';
+        $len = openssl_cipher_iv_length($method);
+        $iv = substr($key,0,$len);
+        $key = substr($key,0,$len);
+        $ret = openssl_encrypt($str,$method,$key,0,$iv);
+        return $ret;
+        //return base64_encode();
+    }
+    // 处理Golang加密的内容
+    static function AesDecode($data,$key){
+        $method = 'aes-128-cbc';
+        $len = openssl_cipher_iv_length($method);
+        $iv = substr($key,0,$len);
+        $key = substr($key,0,$len);
+        return openssl_decrypt($data,$method,$key,0,$iv);
     }
 }

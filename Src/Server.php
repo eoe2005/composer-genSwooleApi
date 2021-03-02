@@ -24,7 +24,6 @@ class Server
             Log::ServerDebug("程序启动");
         });
         $httpServer->on("request",function($r,$w){
-
             $isCheckOk = true;
             if(self::$securityCheck){
                 $st = $r->header['st'] ?? '';
