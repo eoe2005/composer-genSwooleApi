@@ -151,13 +151,13 @@ class Server
             class_alias(\Gen\BaseApi\Action\Msg\ChatSendMsgAction::class,'\\App\\Action\\Msg\\ChatSendMsgAction');
             class_alias(\Gen\BaseApi\Action\Relation\BlackListAddAction::class,'\\App\\Action\\Relation\\BlackListAddAction');
             class_alias(\Gen\BaseApi\Action\Relation\BlackListAction::class,'\\App\\Action\\Relation\\BlackListAction');
-            class_alias(\Gen\BaseApi\Action\Relation\FriendApplyAction::class,'\\App\\Action\\Relation\\FriendApplyAction:');
+            class_alias(\Gen\BaseApi\Action\Relation\FriendApplyAction::class,'\\App\\Action\\Relation\\FriendApplyAction');
             class_alias(\Gen\BaseApi\Action\Relation\FriendDelAction::class,'\\App\\Action\\Relation\\FriendDelAction');
             class_alias(\Gen\BaseApi\Action\Relation\FriendConfirmAction::class,'\\App\\Action\\Relation\\FriendConfirmAction');
             class_alias(\Gen\BaseApi\Action\Relation\FriendListAction::class,'\\App\\Action\\Relation\\FriendListAction');
             class_alias(\Gen\BaseApi\Action\Relation\FriendMarkAction::class,'\\App\\Action\\Relation\\FriendMarkAction');
             class_alias(\Gen\BaseApi\Action\Resource\CommentAction::class,'\\App\\Action\\Resource\\CommentAction');
-            class_alias(\Gen\BaseApi\Action\Resource\CommentListAction::class,'\\App\\Action\\Resource\\CommentListAction',);
+            class_alias(\Gen\BaseApi\Action\Resource\CommentListAction::class,'\\App\\Action\\Resource\\CommentListAction');
             class_alias(\Gen\BaseApi\Action\Resource\FollowAction::class,'\\App\\Action\\Resource\\FollowAction');
             class_alias(\Gen\BaseApi\Action\Resource\FollowListAction::class,'\\App\\Action\\Resource\\FollowListAction');
             class_alias(\Gen\BaseApi\Action\Resource\PraiseAction::class,'\\App\\Action\\Resource\\PraiseAction');
