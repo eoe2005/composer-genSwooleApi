@@ -182,7 +182,6 @@ class Server
                 break;
             case 'install'://安装服务
                 file_put_contents(is_dir('/etc/systemd/system') ? '/etc/systemd/system/'.App::AppName().'.service' : '/usr/lib/systemd/system/'.App::AppName().'.service',sprintf("[Service]
-Type=forking
 ExecStart=%s %s
 TimeoutStopSec=0
 Restart=always
