@@ -4,6 +4,9 @@
 namespace Gen;
 
 
+use OSS\Core\OssException;
+use OSS\OssClient;
+
 class App
 {
     static function AppName(){
@@ -111,5 +114,20 @@ class App
         $iv = substr($key,0,$len);
         $key = substr($key,0,$len);
         return openssl_decrypt($data,$method,$key,0,$iv);
+    }
+
+    //上传到阿里云
+    static function UploadAliOSS($name,$path){
+        $conf = Conf::Ins();
+        try{
+            $ossClient = new OssClient($conf->get('app.ali.oss.accessKeyId'),
+                $conf->get('app.ali.oss.accessKeySecret'),
+                $conf->get('app.ali.oss.endpoint'));
+            $ret = $ossClient->uploadFile($conf->get('app.ali.oss.bucket'), $name, $path);
+            return $ret['oss-request-url'] ?? false;
+        } catch(OssException $e) {
+            Log::Error("上传阿里云失败 ： %s",$e->getMessage());
+            return false;
+        }
     }
 }
