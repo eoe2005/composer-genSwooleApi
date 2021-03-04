@@ -46,8 +46,13 @@ class Cli
     private static function error(){
         echo "参数错误\n";
         self::showCommand();
+        die();
     }
     private static function showCommand($path = ''){
+        echo sprintf("%s %s CMD [daemon]\n\nCMD:\n",
+            $_SERVER['_'] ?? 'php',
+                $_SERVER['SCRIPT_FILENAME']
+        );
         $path = trim($path,'/');
         $dir = APP_ROOT.DS.'Command';
         if($path){
@@ -61,7 +66,7 @@ class Cli
             if(is_dir($dir.'/'.$name)){
                 self::showCommand($path.'/'.$name);
             }else{
-                $name = rtrim($name,'Command');
+                $name = rtrim($name,'Command.php');
                 $cName = $path.'/'.$name;
                 echo sprintf("\t%s\n",trim($cName,'/'));
             }

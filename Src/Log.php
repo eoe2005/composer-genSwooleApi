@@ -38,6 +38,6 @@ class Log
                 mkdir($dir,0777,true);
             }
         }
-        file_put_contents($dir.DS.date("Ymd").strtolower($type),$data,FILE_APPEND|LOCK_EX);
+        file_put_contents($dir.DS.date("Ymd.").strtolower($type),$data,FILE_APPEND|LOCK_EX);
     }
 }
