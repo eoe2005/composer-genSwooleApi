@@ -401,9 +401,11 @@ class GDb
      */
     public function query($sql,$args = [],$isRetry = 0){
         try{
+            $startTime = microtime(true);
             $st = $this->getPdo()->prepare($sql);
             $st->execute($args);
-            $this->debug('%s %s (%s) : %s',$st->errorCode(),$sql,json_encode($args),json_encode($st->errorInfo()));
+            $endTime = microtime(true);
+            $this->debug('%s 耗时：%s %s (%s) : %s',$st->errorCode(),$endTime - $startTime,$sql,json_encode($args),json_encode($st->errorInfo()));
             return $st;
         }catch (\Exception $e){
             throw $e;
