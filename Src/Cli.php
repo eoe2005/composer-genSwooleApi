@@ -66,9 +66,9 @@ class Cli
             if(is_dir($dir.'/'.$name)){
                 self::showCommand($path.'/'.$name);
             }else{
-                $name = rtrim($name,'Command.php');
+                $name = str_replace('Command.php','',$name);
                 $cName = $path.'\\\\'.$name;
-                echo sprintf("\t%s\n",trim($cName,'/'));
+                echo sprintf("\t%s\n",trim($cName,'\\'));
             }
         }
     }
