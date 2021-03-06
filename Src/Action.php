@@ -42,7 +42,7 @@ abstract class Action
         return $this->_new_uid;
     }
 
-    protected function getParam($key,$rouleString = "",$error = ""){
+    public function getParam($key,$rouleString = "",$error = ""){
         $ret = $this->params['data'][$key] ?? "";
         if(!$rouleString){
             return $ret;
@@ -103,7 +103,7 @@ abstract class Action
      * @link
      * @Date: 2021/3/6 11:57
      */
-    protected function getStart(){
+    public function getStart(){
         return intval($this->getParam('start'));
     }
 
@@ -115,7 +115,7 @@ abstract class Action
      * @link
      * @Date: 2021/3/6 11:58
      */
-    protected function getLimit(){
+    public function getLimit(){
         $ret = intval($this->getParam('limit'));
         if($ret < 1){
             $ret = 20;

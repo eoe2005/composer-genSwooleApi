@@ -152,6 +152,7 @@ class App
                 foreach ($keys as $k){
                     $base = $item[$k] ?? '';
                     if($base){
+                        $base = '/'.$base;
                         $auth = md5(sprintf('%s-%s%s',$base,$formData,$aliKey));
                         $item[$k] = $host.$base.'?auth_key='.$formData.$auth;
                     }
@@ -159,6 +160,7 @@ class App
             }else{
                 $base = $item[$keys] ?? '';
                 if($base){
+                    $base = '/'.$base;
                     $auth = md5(sprintf('%s-%s%s',$base,$formData,$aliKey));
                     $item[$keys] = $host.$base.'?auth_key='.$formData.$auth;
                 }

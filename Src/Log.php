@@ -27,6 +27,16 @@ class Log
         self::save(strtoupper($name),...$arguments);
     }
 
+    /**
+     * 显示输出
+     * @param $format
+     * @link
+     * @Date: 2021/3/6 18:09
+     * @author 耿鸿飞<genghongfei@soyoung.com>
+     */
+    public static function ShowDebug($format){
+        echo sprintf("[%s] %s\n",date("Y-m-d H:i:s"),call_user_func_array('sprintf',func_get_args()));
+    }
     private static function save($type,$format){
         static $dir = '';
         $ars = func_get_args();
