@@ -95,4 +95,32 @@ abstract class Action
         return $ret;
     }
 
+    /**
+     * 获取默认开始位置
+     * @return int
+     * @throws \Exception
+     * @author 耿鸿飞<genghongfei@soyoung.com>
+     * @link
+     * @Date: 2021/3/6 11:57
+     */
+    protected function getStart(){
+        return intval($this->getParam('start'));
+    }
+
+    /**
+     * 获取结束位置
+     * @return int
+     * @throws \Exception
+     * @author 耿鸿飞<genghongfei@soyoung.com>
+     * @link
+     * @Date: 2021/3/6 11:58
+     */
+    protected function getLimit(){
+        $ret = intval($this->getParam('limit'));
+        if($ret < 1){
+            $ret = 20;
+        }
+        return $ret;
+    }
+
 }
