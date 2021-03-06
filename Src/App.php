@@ -130,4 +130,40 @@ class App
             return false;
         }
     }
+
+    /**
+     * 生成阿里云的授权连接
+     * @param $list
+     * @param $keys
+     * @param int $timeOut
+     * @return array
+     * @author 耿鸿飞<genghongfei@soyoung.com>
+     * @link
+     * @Date: 2021/3/6 12:34
+     */
+    static function BuildAliCdnUrl($list,$keys,$timeOut = 1800){
+        $time = time() + $timeOut;
+        $host = Conf::Ins()->get('app.ali.cdn.host','http://ali.ggvjj.cn');
+        $aliKey = Conf::Ins()->get('app.ali.cdn.key','');
+        $formData = sprintf('%d-%d-0-',$time,rand(0,999));
+
+        return array_map(function ($item) use($keys,$host,$aliKey,$formData){
+            if(is_array($keys)){
+                foreach ($keys as $k){
+                    $base = $item[$k] ?? '';
+                    if($base){
+                        $auth = md5(sprintf('%s-%s%s',$base,$formData,$aliKey));
+                        $item[$k] = $host.$base.'?auth_key='.$formData.$auth;
+                    }
+                }
+            }else{
+                $base = $item[$keys] ?? '';
+                if($base){
+                    $auth = md5(sprintf('%s-%s%s',$base,$formData,$aliKey));
+                    $item[$keys] = $host.$base.'?auth_key='.$formData.$auth;
+                }
+            }
+            return $item;
+        },$list);
+    }
 }
