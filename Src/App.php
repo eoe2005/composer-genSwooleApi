@@ -168,4 +168,23 @@ class App
             return $item;
         },$list);
     }
+
+    /**
+     * 生成ALI云的URL
+     * @param $url
+     * @param int $timeOut
+     * @return string
+     * @author 耿鸿飞 <15911185633>
+     * @date 2021/3/8
+     * @like
+     */
+    static function BuildAliUrl($url,$timeOut = 1800){
+        $time = time() + $timeOut;
+        $host = Conf::Ins()->get('app.ali.cdn.host','http://ali.ggvjj.cn');
+        $aliKey = Conf::Ins()->get('app.ali.cdn.key','');
+        $formData = sprintf('%d-%d-0-',$time,rand(0,999));
+        $base = '/'.$url;
+        $auth = md5(sprintf('%s-%s%s',$base,$formData,$aliKey));
+        return $host.$base.'?auth_key='.$formData.$auth;
+    }
 }

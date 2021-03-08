@@ -17,4 +17,15 @@ class Utils
         }
         return '';
     }
+
+    /**
+     * 获取到尽头的最后时间戳
+     * @return false|int
+     * @author 耿鸿飞 <15911185633>
+     * @date 2021/3/8
+     * @like
+     */
+    static function TodayExpireTime(){
+        return strtotime(date("H:m:d 23:59:59")) - time();
+    }
 }
