@@ -37,7 +37,7 @@ class DbBack
         $sts = $this->getTables($src);
         $dts = $this->getTables($desc);
         foreach ($dts as $t=>$v){
-            $desc->exec("FROP TABLE `%s`",$t);
+            $desc->exec("DROP TABLE `%s`",$t);
         }
         foreach ($sts as $k => $sql){
             $desc->exec($sql);
@@ -46,7 +46,7 @@ class DbBack
     }
 
     private function getTables($con){
-        $tables = $con->fetchAll("SHOW TABLES");
+        $tables = $con->fetchAll("SHOW TABLES %s",'');
         $ret = [];
         foreach ($tables as $table){
             foreach ($table as $k => $t){
