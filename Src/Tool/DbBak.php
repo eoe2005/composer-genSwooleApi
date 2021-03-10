@@ -6,15 +6,15 @@ namespace Gen\Tool;
 
 use Gen\GDb;
 
-class DbBack
+class DbBak
 {
 
     //同步数据库
     public function dbSync($srcName,$descName){
         $src = GDb::Ins($srcName);
         $desc = GDb::Ins($descName);
-        $tables = $src->fetchAll("SHOW TABLES");
-        foreach ($tables as $table){
+        $tables = $this->getTables($src);
+        foreach ($tables as $table => $dd){
             $start = 0;
             while ($start >= 0){
                 $list = $src->fetchAll("SELECT * FROM %s LIMIT %d,100",$table,$start);
