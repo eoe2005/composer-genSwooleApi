@@ -35,4 +35,8 @@ class Conf
         }
         return $keys;
     }
+
+    public function setAttr($k,$v){
+        $this->_data[$k] = $v;
+    }
 }
