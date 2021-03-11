@@ -332,15 +332,15 @@ class GDb
      * @date 2020/11/10
      * @like
      */
-    private function getPdo(){
-        if($this->pdo === false){
+    private function getPdo($isForce = false){
+        if($this->pdo === false || $isForce){
             $conf = Conf::Ins()->getArr("mysql.".$this->conName,[
                 'host' => '127.0.0.1',
                 'port' => 3306,
                 'dbname' => 'test',
                 'user' => 'root',
                 'pass' => '',
-                'charset' => 'utf8'
+                'charset' => 'utf8mb4'
             ]);
             $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s',
                 $conf['host'],$conf['port'],$conf['dbname']);
@@ -399,13 +399,17 @@ class GDb
      * @date 2020/11/10
      * @like
      */
-    public function query($sql,$args = [],$isRetry = 0){
+    public function query($sql,$args = [],$retryTimes = 0){
         try{
             $startTime = microtime(true);
             $st = $this->getPdo()->prepare($sql);
             $st->execute($args);
             $endTime = microtime(true);
             $this->debug('%s 耗时：%s %s (%s) : %s',$st->errorCode(),$endTime - $startTime,$sql,json_encode($args),json_encode($st->errorInfo()));
+            if($retryTimes < 3 && ($st->errorCode() == 2006)){
+                $this->getPdo(true);
+                return $this->query($sql,$args,$retryTimes++);
+            }
             return $st;
         }catch (\Exception $e){
             throw $e;
