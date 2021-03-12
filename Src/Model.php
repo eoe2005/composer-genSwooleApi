@@ -405,8 +405,9 @@ class GDb
             $st = $this->getPdo()->prepare($sql);
             $st->execute($args);
             $endTime = microtime(true);
-            $this->debug('%s 耗时：%s %s (%s) : %s',$st->errorCode(),$endTime - $startTime,$sql,json_encode($args),json_encode($st->errorInfo()));
-            if($retryTimes < 3 && ($st->errorCode() == 2006)){
+            $errInfo = $st->errorInfo();
+            $this->debug('%s 耗时：%s %s (%s) : %s',$st->errorCode(),$endTime - $startTime,$sql,json_encode($args),json_encode($errInfo));
+            if($retryTimes < 3 && ($errInfo[1] == 2006)){
                 $this->getPdo(true);
                 return $this->query($sql,$args,$retryTimes++);
             }
