@@ -41,7 +41,7 @@ class Server
                 Log::Time("%s start",$url);
                 $w->header('Access-Control-Allow-Origin','*');
                 $data = self::apiCall($r,$w);
-                $w->header('content-type', 'application/json', true);
+                //$w->header('content-type', 'application/json', true);
                 $ret = json_encode($data);
                 self::sendData($w,$ret);
                 Log::Time("%s end",$url);
