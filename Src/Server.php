@@ -16,8 +16,8 @@ class Server
             self::argRun($arg);
             exit();
         }
-        self::$securityCheck = Conf::Ins()->get('app.security.check','off') == 'on';
-        self::$securityBody = Conf::Ins()->get('app.security.body','off') == 'on';
+        self::$securityCheck = Conf::Ins()->get('app.security.check','off');
+        self::$securityBody = Conf::Ins()->get('app.security.body','off');
         self::startBaseApi();
         $httpServer = new \Swoole\Http\Server('0.0.0.0', Conf::Ins()->getInt('app.port',8080));
         $httpServer->on("start",function($server){
