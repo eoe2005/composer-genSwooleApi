@@ -29,6 +29,7 @@ class Cli
                 system("git pull;composer update");
                 Log::ShowDebug("重启服务");
                 system(sprintf("sudo systemctl restart %s",basename(APP_ROOT)));
+                die();
                 break;
 
         }
