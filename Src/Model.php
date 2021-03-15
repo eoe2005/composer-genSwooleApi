@@ -170,6 +170,9 @@ class DbQuery
         $this->limit = sprintf('LIMIT %d,%d',$offset,$size);
         return $this;
     }
+    public function group($str){
+        $this->group = sprintf(' GROUP BY `%s`',$str);
+    }
     public function get($select = '*'){
         $sql = sprintf('SELECT %s FROM `%s` WHERE %s %s %s %s',
             is_string($select) ? $select : implode(',',$select),

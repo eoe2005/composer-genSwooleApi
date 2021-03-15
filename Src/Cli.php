@@ -19,6 +19,19 @@ class Cli
         if(!$name){
             self::error();
         }
+        switch (strtolower($name)){
+            case 'restart':
+                Log::ShowDebug("重启服务");
+                system(sprintf("sudo systemctl restart %s",basename(APP_ROOT)));
+                break;
+            case 'pull':
+                Log::ShowDebug("更新代码");
+                system("git pull;composer update");
+                Log::ShowDebug("重启服务");
+                system(sprintf("sudo systemctl restart %s",basename(APP_ROOT)));
+                break;
+
+        }
         $claName = '\\App\\Command\\'.$name.'Command';
         if(!class_exists($claName)){
             self::error();
