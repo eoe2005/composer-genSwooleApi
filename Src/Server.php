@@ -24,6 +24,7 @@ class Server
             Log::ServerDebug("程序启动");
         });
         $httpServer->on("request",function($r,$w){
+            $w->header('Access-Control-Allow-Origin','*');
             $isCheckOk = true;
             if(self::$securityCheck){
                 $st = $r->header['st'] ?? '';
@@ -39,7 +40,6 @@ class Server
             if($isCheckOk){
                 $url = trim($r->server['request_uri'], '/');
                 Log::Time("%s start",$url);
-                $w->header('Access-Control-Allow-Origin','*');
                 $data = self::apiCall($r,$w);
                 //$w->header('content-type', 'application/json', true);
                 $ret = json_encode($data);
