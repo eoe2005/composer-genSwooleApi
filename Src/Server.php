@@ -88,7 +88,7 @@ class Server
             }
             return App::Success($data);
         }catch (\Exception $e){
-            Log::Error($e->getTraceAsString());
+            Log::Error("%s \n\t->%s",$e->getMessage(),$e->getTraceAsString());
             return App::Error(500,'系统异常');
         }
     }
@@ -124,6 +124,10 @@ class Server
      */
     private static function parseParam($r){
         $data = $r->rawContent();
+        if(self::$securityBody){
+            $jsonData = json_decode(App::SecureDecode($data),true);
+            return $jsonData;
+        }
         $jsonData = json_decode($data,true);
         return $jsonData;
     }
