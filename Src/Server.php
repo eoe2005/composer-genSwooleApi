@@ -25,6 +25,15 @@ class Server
         });
         $httpServer->on("request",function($r,$w){
             $w->header('Access-Control-Allow-Origin','*');
+            $w->header("Access-Control-Allow-Origin", "*");
+            $w->header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, token, st");
+            $w->header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+            $w->header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type");
+            $w->header("Access-Control-Allow-Credentials", "true");
+            if($r->server['request_method'] == 'OPTIONS'){
+                $w->end('');
+                return;
+            }
             $isCheckOk = true;
             if(self::$securityCheck){
                 $st = $r->header['st'] ?? '';
