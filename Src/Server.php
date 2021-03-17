@@ -50,7 +50,6 @@ class Server
                 $url = trim($r->server['request_uri'], '/');
                 Log::Time("%s start",$url);
                 $data = self::apiCall($r,$w);
-                //$w->header('content-type', 'application/json', true);
                 $ret = json_encode($data);
                 self::sendData($w,$ret);
                 Log::Time("%s end",$url);
