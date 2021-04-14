@@ -53,6 +53,7 @@ class Server
                 $ret = json_encode($data);
                 self::sendData($w,$ret);
                 Log::Time("%s end",$url);
+                Log::ReqLog("%s (%s) -> %s",$url,json_encode(self::parseParam($r)),json_encode($ret));
             }else{
                 self::sendData($w,json_encode(['code' => 502,'msg' => '网关超时']));
             }
