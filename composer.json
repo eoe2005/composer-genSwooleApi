@@ -27,6 +27,5 @@
 
     "autoload": {
         "psr-4": {"Gen\\": "Src/"}
-    },
-    "bin": ["bin/genapi"]
+    }
 }
